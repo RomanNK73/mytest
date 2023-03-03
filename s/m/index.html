@@ -222,6 +222,10 @@ AFRAME.registerComponent("sncomp", { //
             currAudioEl.play();
         }
         return;  
+    }
+    else
+    {
+    	looseTarget(null);
     };   
     
    	window.location.href = this.data.snurl; 
