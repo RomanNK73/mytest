@@ -2,8 +2,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
-    <!--script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script-->
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1f00d0beadf87bad7d275c174616e048f8b573fc/dist/aframe-master.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
 
@@ -222,13 +221,14 @@ AFRAME.registerComponent("sncomp", { //
             currAudioEl.play();
         }
         return;  
-    }
-    else
-    {
-    	//looseTarget(null);
     };   
     
    	window.location.href = this.data.snurl; 
+   	
+   	//loose
+   	
+   	//looseTarget(event);
+   	
     SendClick(currTarget, "site uid", this.data.sntype);
   }
 });
@@ -364,8 +364,7 @@ onTargFound: function (event)
     ti = this.components['mindar-image-target'].data.targetIndex;
     currModel   = this.children.namedItem('model-el'+ti);
     
-    // 1 mar 2023	
-    //if (!firsModelClicked)
+    if (!firsModelClicked)
     {
         if (currAudioEl)
         {
@@ -373,8 +372,8 @@ onTargFound: function (event)
         }
     }
     
-    // 1 mar 2023
-    //if (!firsModelClicked)
+// 1 mar 2023
+//    if (!firsModelClicked)
     {
         if (currModel)
         {
@@ -384,7 +383,7 @@ onTargFound: function (event)
   
   currPlayButton.play();
       
-      // 1 mar 2023
+// 1 mar 2023		
       //if (!firsfound)
       {
         currPlayButton.click();
@@ -428,21 +427,55 @@ document.addEventListener("visibilitychange", function() {
     // не раб  
     //this.components['tarcomp'].onTargLost(0);  
     // + stop video
-      stopCurrVideo();
-      stopCurrModel();
+
+// was
+//      stopCurrVideo();
+//      stopCurrModel();
+
+
+	//arSystem.pause();
+
+	console.log("ar pause");
     
   }
   else // типа onresume
   {
       //window.alert("resume!");
-      setTimeout(startCurrModel, 5000);
       //arSystem.start();
       //arSystem.unpause();
+
+
+// was
+//       setTimeout(startCurrModel, 5000);
+	
+
+	//arSystem.unpause();
+
+//	startCurrModel()
+//	//startCurrVideo();
+//	currPlayButton.click();
+
+
+
+      console.log("ar unpause");
+
+      ///looseTarget(event);
+
+      setTimeout(startAll,2000)
+      
   }
   
 
   
 }, false);
+
+
+function startAll()
+{
+    if (!isTracked) return;
+    startCurrModel()
+    currPlayButton.click();
+}
 
 
   document.addEventListener("DOMContentLoaded", function() {
@@ -579,7 +612,7 @@ document.addEventListener("visibilitychange", function() {
 
 
 
- <a-entity id="target0" mindar-image-target="targetIndex: 1" tarcomp>
+ <a-entity id="target1" mindar-image-target="targetIndex: 1" tarcomp>
 
       <!-- звук для модели (запускается вместе с моделью)  -->
       <!--audio id="audio-el" controls src="audios/audio.mp3"></audio-->
